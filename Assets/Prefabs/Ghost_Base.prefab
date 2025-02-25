@@ -398,6 +398,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d5e15c75b88558b469ecc97990cce215, type: 3}
   animationTime: 0.25
   loop: 1
+  spriteRenderer: {fileID: 8182922294497502225}
 --- !u!1 &8258949897259618613
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +501,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6f51e42bf59063c4ab7a5608a42bd23d, type: 3}
   animationTime: 0.25
   loop: 1
+  spriteRenderer: {fileID: 6337672407132840256}
 --- !u!1 &8402458858377581156
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,3 +606,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0046507bc33d04343a6bcbf90288aff2, type: 3}
   animationTime: 0.25
   loop: 1
+  spriteRenderer: {fileID: 7175870383412009533}

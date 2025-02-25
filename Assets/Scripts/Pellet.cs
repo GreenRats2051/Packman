@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Pellet : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] protected GameManager gameManager;
     public int points;
 
     private void Start()

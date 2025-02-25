@@ -205,6 +205,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e3b83262a412c74408dba5cbe89f43f5, type: 3}
   animationTime: 0.125
   loop: 1
+  spriteRenderer: {fileID: 6038318316045854525}
 --- !u!1 &9178482116000426182
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,3 +318,4 @@ MonoBehaviour:
   - {fileID: 0}
   animationTime: 0.125
   loop: 0
+  spriteRenderer: {fileID: 672828260759337289}

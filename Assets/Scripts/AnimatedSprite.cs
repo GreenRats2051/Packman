@@ -5,23 +5,17 @@ public class AnimatedSprite : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private float animationTime;
     [SerializeField] private bool loop;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private SpriteRenderer spriteRenderer;
     private int animationFrame;
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         InvokeRepeating(nameof(Advance), animationTime, animationTime);
     }
 
     private void Advance()
     {
-        if (!spriteRenderer.enabled)
-        {
-            return;
-        }
-
         animationFrame++;
 
         if (animationFrame >= sprites.Length && loop)
@@ -31,7 +25,7 @@ public class AnimatedSprite : MonoBehaviour
 
         if (animationFrame >= 0 && animationFrame < sprites.Length)
         {
-            spriteRenderer.sprite = sprites[animationFrame];
+            spriteRenderer.sprite = sprites[animationFrame] ?? null;
         }
     }
 
