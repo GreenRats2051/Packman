@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform pellets;
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text scoreText;
-    [SerializeField] private Text livesText;
+    [SerializeField] private Image[] lifeImages;
+    [SerializeField] private Color lifeSprite;
+    [SerializeField] private Color emptyLifeSprite;
 
     public int score { get; set; }
     public int lives { get; set; }
@@ -72,7 +74,22 @@ public class GameManager : MonoBehaviour
     private void SetLives(int lives)
     {
         this.lives = lives;
-        livesText.text = "x" + lives.ToString();
+        UpdateLifeImages();
+    }
+
+    private void UpdateLifeImages()
+    {
+        for (int i = 0; i < lifeImages.Length; i++)
+        {
+            if (i < lives)
+            {
+                lifeImages[i].color = lifeSprite;
+            }
+            else
+            {
+                lifeImages[i].color = emptyLifeSprite;
+            }
+        }
     }
 
     private void SetScore(int score)
