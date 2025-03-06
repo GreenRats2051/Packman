@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -6,14 +7,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Ghost[] ghosts;
     [SerializeField] private Pacman pacman;
     [SerializeField] private Transform pellets;
-    [SerializeField] private Text gameOverText;
+    [SerializeField] private GameObject gameState;
+    [SerializeField] private Text gameStateText;
     [SerializeField] private Text scoreText;
     [SerializeField] private Image[] lifeImages;
     [SerializeField] private Color lifeSprite;
     [SerializeField] private Color emptyLifeSprite;
+    [SerializeField] private Image[] keyImages;
+    [SerializeField] private Color keySprite;
+    [SerializeField] private Color emptyKeySprite;
 
     public int score { get; set; }
     public int lives { get; set; }
+    public int keys { get; set; }
 
     private int ghostMultiplier;
 
@@ -24,22 +30,37 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown)
+        if (lives <= 0)
         {
-            NewGame();
+            gameStateText.color = Color.red;
+            gameStateText.text = "Game Over";
+            gameState.SetActive(true);
+        }
+
+        if (!HasRemainingPellets() && keys == 3)
+        {
+            gameStateText.color = Color.green;
+            gameStateText.text = "Game Win";
+            gameState.SetActive(true);
         }
     }
 
-    private void NewGame()
+    public void NewGame()
     {
         SetScore(0);
         SetLives(3);
+        SetKeys(0);
         NewRound();
+    }
+
+    public void ExitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void NewRound()
     {
-        gameOverText.enabled = false;
+        gameState.SetActive(false);
 
         foreach (Transform pellet in pellets)
         {
@@ -61,7 +82,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverText.enabled = true;
+        gameState.SetActive(true);
 
         for (int i = 0; i < ghosts.Length; i++)
         {
@@ -88,6 +109,27 @@ public class GameManager : MonoBehaviour
             else
             {
                 lifeImages[i].color = emptyLifeSprite;
+            }
+        }
+    }
+
+    private void SetKeys(int key)
+    {
+        this.keys = key;
+        UpdateKeyImages();
+    }
+
+    public void UpdateKeyImages()
+    {
+        for (int i = 0; i < keyImages.Length; i++)
+        {
+            if (i < keys)
+            {
+                keyImages[i].color = keySprite;
+            }
+            else
+            {
+                keyImages[i].color = emptyKeySprite;
             }
         }
     }
@@ -131,7 +173,6 @@ public class GameManager : MonoBehaviour
         if (!HasRemainingPellets())
         {
             pacman.gameObject.SetActive(false);
-            Invoke(nameof(NewRound), 3f);
         }
     }
 
