@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    [SerializeField] protected AudioSource audioSourcePickUp;
     [SerializeField] protected GameManager gameManager;
 
     private void Start()
@@ -13,6 +14,7 @@ public class Key : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
+            audioSourcePickUp.Play();
             gameManager.keys++;
             gameManager.UpdateKeyImages();
             gameObject.SetActive(false);

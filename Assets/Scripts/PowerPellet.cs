@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerPellet : Pellet
 {
-    public float duration;
+    public int duration;
 
     private void Start()
     {

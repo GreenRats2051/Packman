@@ -3,7 +3,7 @@ using UnityEngine;
 public class Pacman : MonoBehaviour
 {
     [SerializeField] private AnimatedSprite deathSequence;
-
+    [SerializeField] protected AudioSource audioSourceDead;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private CircleCollider2D circleCollider;
     [SerializeField] private Movement movement;
@@ -56,5 +56,6 @@ public class Pacman : MonoBehaviour
         movement.enabled = false;
         deathSequence.enabled = true;
         deathSequence.Restart();
+        audioSourceDead.Play();
     }
 }

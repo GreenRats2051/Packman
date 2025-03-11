@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image[] keyImages;
     [SerializeField] private Color keySprite;
     [SerializeField] private Color emptyKeySprite;
+    [SerializeField] protected AudioSource audioSourceMusic;
+    [SerializeField] protected AudioClip audioClipNormal;
+    [SerializeField] protected AudioClip audioClipHunt;
+    [SerializeField] protected AudioSource audioSourceEat;
 
     public int score { get; set; }
     public int lives { get; set; }
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
+        audioSourceMusic.clip = audioClipNormal;
         SetScore(0);
         SetLives(3);
         SetKeys(0);
@@ -166,8 +171,8 @@ public class GameManager : MonoBehaviour
 
     public void PelletEaten(Pellet pellet)
     {
+        audioSourceEat.Play();
         pellet.gameObject.SetActive(false);
-
         SetScore(score + pellet.points);
 
         if (!HasRemainingPellets())
@@ -183,9 +188,12 @@ public class GameManager : MonoBehaviour
             ghosts[i].frightened.Enable(pellet.duration);
         }
 
+        audioSourceMusic.clip = audioClipHunt;
+        audioSourceMusic.Play();
         PelletEaten(pellet);
         CancelInvoke(nameof(ResetGhostMultiplier));
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
+        Invoke(nameof(ResetMusic), pellet.duration);
     }
 
     private bool HasRemainingPellets()
@@ -203,5 +211,11 @@ public class GameManager : MonoBehaviour
     private void ResetGhostMultiplier()
     {
         ghostMultiplier = 1;
+    }
+
+    private void ResetMusic()
+    {
+        audioSourceMusic.clip = audioClipNormal;
+        audioSourceMusic.Play();
     }
 }
